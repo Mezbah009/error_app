@@ -9,4 +9,10 @@ class Project extends Model
     protected $fillable = [
         'title'
     ];
+
+
+    public function errorTrackings()
+    {
+        return $this->hasMany(ErrorTracking::class);
+    }
 }

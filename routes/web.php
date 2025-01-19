@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ErrorTrackingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjrctController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login'); // Redirect to the login page
 });
 
 Route::get('/dashboard', function () {
@@ -28,3 +30,7 @@ Route::get('user-test', [DashboardController::class, 'test'])->middleware('auth'
 
 
 Route::resource('projects', ProjrctController::class);
+
+Route::resource('users', UserController::class);
+Route::resource('error_trackings', ErrorTrackingController::class);
+

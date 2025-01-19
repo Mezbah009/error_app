@@ -9,8 +9,8 @@ class ProjrctController extends Controller
 {
     public function index()
     {
-        $projects = Project::all();
-        return view('projects.index', compact('projects'));
+        $projects = Project::paginate(10); // Fetch paginated projects, 10 per page
+        return view('projects.index', compact('projects')); // Return to the view
     }
 
     public function create()
