@@ -40,22 +40,29 @@
             </div>
 
             <div>
-                <label for="solution_description" class="block text-sm font-medium text-gray-700">Solution Description</label>
+                <label for="solution_description" class="block text-sm font-medium text-gray-700">Solution
+                    Description</label>
                 <textarea name="solution_description" id="solution_description" rows="4" required
                     class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"></textarea>
             </div>
 
             <div>
-                <label for="solution_provided_by" class="block text-sm font-medium text-gray-700">Solution Provided By</label>
+                <label for="solution_provided_by" class="block text-sm font-medium text-gray-700">Solution Provided
+                    By</label>
                 <input type="text" name="solution_provided_by" id="solution_provided_by" required
                     class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
             </div>
 
             <div>
                 <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
-                <input type="text" name="status" id="status" required
+                <select name="status" id="status" required
                     class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    <option value="" disabled selected>Select Status</option>
+                    <option value="Resolved">Resolved</option>
+                    <option value="In Progress">In Progress</option>
+                </select>
             </div>
+
 
             <div>
                 <label for="comments" class="block text-sm font-medium text-gray-700">Comments</label>

@@ -3,13 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
 
 class ProjrctController extends Controller
 {
     public function index()
     {
-        $projects = Project::paginate(10); // Fetch paginated projects, 10 per page
+
+        $projects = Project::when(!auth()->user()->hasRole('admin'), function ($query) {
+            return $query->where('developer_id', auth()->id());
+        })->paginate();
+
         return view('projects.index', compact('projects')); // Return to the view
     }
 
@@ -24,7 +29,10 @@ class ProjrctController extends Controller
             'title' => 'required|max:255',
         ]);
 
-        Project::create($request->all());
+        Project::create([
+            'title'=>$request->title,
+            'developer_id'=>auth()->id()
+        ]);
 
         return redirect()->route('projects.index')->with('success', 'Project created successfully.');
     }

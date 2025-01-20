@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('picture')->nullable()->after('password');
             $table->string('role')->default(UserRole::User->value)->after('picture');
+            $table->string('employee_id')->unique()->after('role');
         });
     }
 
@@ -24,7 +25,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['picture', 'role']);
+            $table->dropColumn(['picture', 'role', 'employee_id']);
         });
     }
 };

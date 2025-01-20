@@ -18,7 +18,7 @@
                 </x-sidebar-link>
             </li>
             <li>
-                <x-sidebar-link :href="route('error_trackings.index')" :active="request()->routeIs('dashboard')">
+                <x-sidebar-link :href="route('error_trackings.index')" :active="request()->routeIs('error_trackings.index')">
 
 
                     <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -30,7 +30,7 @@
                 </x-sidebar-link>
             </li>
             <li>
-                <x-sidebar-link :href="route('users.index')" :active="request()->routeIs('dashboard')">
+                <x-sidebar-link :href="route('users.index')" :active="request()->routeIs('users.index')">
 
 
                     <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -42,7 +42,7 @@
                 </x-sidebar-link>
             </li>
             <li>
-                <x-sidebar-link :href="route('projects.index')" :active="request()->routeIs('dashboard')">
+                <x-sidebar-link :href="route('projects.index')" :active="request()->routeIs('projects.index')">
 
 
                     <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"

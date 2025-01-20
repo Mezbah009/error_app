@@ -20,6 +20,13 @@
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
         </div>
+        <div class="mb-4">
+            <label for="employee_id" class="block text-sm font-medium text-gray-700">Employee Id</label>
+            <input type="text" id="employee_id" name="employee_id" value="{{ old('employee_id') }}" class="w-full border border-gray-300 rounded px-4 py-2" required>
+            @error('employee_id')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
+        </div>
 
         <div class="mb-4">
             <label for="password" class="block text-sm font-medium text-gray-700">Password</label>

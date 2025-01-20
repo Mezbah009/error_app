@@ -16,6 +16,7 @@
             <tr class="bg-gray-100">
                 <th class="border border-gray-300 px-4 py-2">ID</th>
                 <th class="border border-gray-300 px-4 py-2">Name</th>
+                <th class="border border-gray-300 px-4 py-2">Employee ID</th>
                 <th class="border border-gray-300 px-4 py-2">Email</th>
                 <th class="border border-gray-300 px-4 py-2">Role</th>
                 <th class="border border-gray-300 px-4 py-2">Actions</th>
@@ -26,6 +27,7 @@
             <tr>
                 <td class="border border-gray-300 px-4 py-2">{{ $user->id }}</td>
                 <td class="border border-gray-300 px-4 py-2">{{ $user->name }}</td>
+                <td class="border border-gray-300 px-4 py-2">{{ $user->employee_id}}</td>
                 <td class="border border-gray-300 px-4 py-2">{{ $user->email }}</td>
                 <td class="border border-gray-300 px-4 py-2">{{ $user->role }}</td>
                 <td class="border border-gray-300 px-4 py-2">

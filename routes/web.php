@@ -11,9 +11,6 @@ Route::get('/', function () {
     return redirect()->route('login'); // Redirect to the login page
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -29,8 +26,18 @@ Route::get('user-test', [DashboardController::class, 'test'])->middleware('auth'
 
 
 
-Route::resource('projects', ProjrctController::class);
 
-Route::resource('users', UserController::class);
-Route::resource('error_trackings', ErrorTrackingController::class);
 
+
+
+Route::middleware('auth', 'verified')->group(function () {
+    Route::resource('projects', ProjrctController::class);
+    Route::resource('users', UserController::class)->middleware('role:admin');
+    Route::resource('error_trackings', ErrorTrackingController::class);
+
+
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->middleware(['auth', 'verified'])->name('dashboard');
+
+});

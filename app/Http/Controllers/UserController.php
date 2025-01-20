@@ -41,6 +41,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
+            'employee_id' => 'required|string|max:255|unique:users',
             'password' => 'required|string|min:6',
             'role' => 'required|in:' . implode(',', array_column(UserRole::cases(), 'value')),
         ]);
@@ -48,6 +49,7 @@ class UserController extends Controller
         User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'employee_id' => $request->employee_id,
             'password' => Hash::make($request->password),
             'role' => $request->role,
         ]);
