@@ -12,27 +12,42 @@ class ErrorTrackingController extends Controller
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
-        // Retrieve all error tracking records with related developer and project
-        $errorTrackings = ErrorTracking::with(['developer', 'project'])->paginate(10);
+        // Check the role of the authenticated user
+        if (auth()->user()->role === 'admin') {
+            // If the user is an admin, fetch all error tracking records
+            $errorTrackings = ErrorTracking::with(['developer', 'project'])
+                ->orderBy('id', 'desc') // Order by 'id' in descending order
+                ->paginate(10);
+        } else {
+            // If the user is not an admin, fetch only error tracking records related to the authenticated user
+            $errorTrackings = ErrorTracking::with(['developer', 'project'])
+                ->where('developer_id', auth()->id()) // Assuming 'developer_id' is the field linking to the user
+                ->orderBy('id', 'desc') // Order by 'id' in descending order
+                ->paginate(10);
+        }
 
-        return view('error_trackings.index', compact('errorTrackings'));
+        // Check the role of the authenticated user
+        if (auth()->user()->role === 'admin') {
+            // If the user is an admin, fetch all users with role 'user'
+            $developers = User::where('role', 'user')->get();
+        } else {
+            // If the user is not an admin, fetch only the authenticated user
+            $developers = User::where('id', auth()->id())->get();
+        }
+
+        // Fetch all projects
+        $projects = Project::all();
+
+        // Return the view with the data
+        return view('error_trackings.index', compact('errorTrackings', 'developers', 'projects'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $developers = User::where('role', 'user')->get(); // Fetch users with role 'user'
-        $projects = Project::all(); // Fetch all projects
-
-        return view('error_trackings.create', compact('developers', 'projects'));
-    }
 
     /**
-     * Store a newly created resource in storage.
+     * store method.
      */
     public function store(Request $request)
     {
@@ -52,28 +67,31 @@ class ErrorTrackingController extends Controller
         return redirect()->route('error_trackings.index')->with('success', 'Error tracking record created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(ErrorTracking $errorTracking)
-    {
-        return view('error_trackings.show', compact('errorTracking'));
-    }
 
     /**
-     * Show the form for editing the specified resource.
+     * show method.
+     */
+
+    public function show(ErrorTracking $errorTracking)
+    {
+        return response()->json($errorTracking->load(['developer', 'project']));
+    }
+
+
+
+    /**
+     * edit method.
      */
     public function edit(ErrorTracking $errorTracking)
     {
-        $developers = User::where('role', 'user')->get(); // Fetch users with role 'user'
-        $projects = Project::all(); // Fetch all projects
-
-        return view('error_trackings.edit', compact('errorTracking', 'developers', 'projects'));
+        return response()->json($errorTracking->load(['developer', 'project']));
     }
 
+
     /**
-     * Update the specified resource in storage.
+     * update method.
      */
+
     public function update(Request $request, ErrorTracking $errorTracking)
     {
         $request->validate([
@@ -91,6 +109,8 @@ class ErrorTrackingController extends Controller
 
         return redirect()->route('error_trackings.index')->with('success', 'Error tracking record updated successfully.');
     }
+
+
 
     /**
      * Remove the specified resource from storage.

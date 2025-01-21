@@ -13,13 +13,17 @@
                         </path>
                     </svg>
                 </button>
+
+
                 <a href="/dashboard" class="flex items-center ms-2 md:me-24">
-                    <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                    <img src="{{ asset('images/logo.png') }}" alt="Application Logo" class="block h-9 w-auto">
                     <span class="text-2xl font-bold ml-2">
                         {{-- {{ config('app.name') }} --}}
                         Error Track
                     </span>
                 </a>
+
+
             </div>
             <div class="flex items-center">
                 <div class="flex items-center ms-3">

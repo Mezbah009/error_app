@@ -1,8 +1,12 @@
 <x-app-layout>
+
+    <!-- Add this to your <head> if you don't have Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <div class="container mx-auto py-8">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-bold">Projects</h1>
-            <a href="{{ route('projects.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add Project</a>
+            <a href="{{ route('projects.create') }}"
+                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add Project</a>
         </div>
 
         @if (session('success'))
@@ -22,29 +26,34 @@
             </thead>
             <tbody>
                 @foreach ($projects as $project)
-                <tr>
-                    <td class="border border-gray-300 px-4 py-2">{{ $project->id }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ $project->title }}</td>
-                    {{-- <td class="border border-gray-300 px-4 py-2">{{ $project->description }}</td> --}}
-                    <td class="border border-gray-300 px-4 py-2">
-                        <a href="{{ route('projects.edit', $project) }}" class="text-blue-500 hover:underline">Edit</a>
-                        |
-                        <form action="{{ route('projects.destroy', $project) }}" method="POST" class="inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-red-500 hover:underline" onclick="return confirm('Are you sure?')">Delete</button>
-                        </form>
-                    </td>
-                </tr>
+                    <tr>
+                        <td class="border border-gray-300 px-4 py-2">{{ $project->id }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ $project->title }}</td>
+                        {{-- <td class="border border-gray-300 px-4 py-2">{{ $project->description }}</td> --}}
+                        <td class="border border-gray-300 px-4 py-2">
+                            <a href="{{ route('projects.edit', $project) }}" class="text-blue-500 hover:underline">
+                                <i class="fas fa-edit"></i> <!-- Font Awesome edit icon -->
+                            </a>
+                            |
+                            <form action="{{ route('projects.destroy', $project) }}" method="POST" class="inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-red-500 hover:underline"
+                                    onclick="return confirm('Are you sure?')">
+                                    <i class="fas fa-trash-alt"></i> <!-- Font Awesome trash icon -->
+                                </button>
+                            </form>
+                        </td>
+
+                    </tr>
                 @endforeach
             </tbody>
         </table>
 
         <!-- Pagination links -->
         <div class="mt-6">
-            {{ $projects->links() }}  <!-- Tailwind pagination links -->
+            {{ $projects->links() }} <!-- Tailwind pagination links -->
         </div>
     </div>
 
 </x-app-layout>
-
