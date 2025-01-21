@@ -1,7 +1,5 @@
 <x-app-layout>
 
-    <!-- Add this to your <head> if you don't have Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
     <div class="container mx-auto py-8" x-data="{
         showModal: false,
@@ -22,6 +20,7 @@
                 });
         }
     }">
+
         <h1 class="text-2xl font-bold mb-6">Error Tracking</h1>
 
         @if (session('success'))
@@ -113,25 +112,49 @@
                             {{ $errorTracking->comments }}</td>
                         <td class="border border-gray-300 px-4 py-2">
                             <div class="flex items-center space-x-2">
-                                <button class="text-green-500 hover:text-green-600 focus:outline-none text-sm"
-                                    @click="viewErrorTracking({{ $errorTracking->id }})">
-                                    <i class="fas fa-eye text-base"></i>
+                                <!-- View Button -->
+                                <button @click="viewErrorTracking({{ $errorTracking->id }})"
+                                    aria-label="View Error Tracking">
+                                    <svg class="w-6 h-6 text-green-500 hover:text-green-600"
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                        viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke="currentColor" stroke-width="2"
+                                            d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z" />
+                                        <path stroke="currentColor" stroke-width="2"
+                                            d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                    </svg>
                                 </button>
-                                <button class="text-blue-500 hover:text-blue-600 focus:outline-none text-sm"
-                                    @click="editErrorTracking({{ $errorTracking->id }})">
-                                    <i class="fas fa-edit text-base"></i>
+
+                                <!-- Edit Button -->
+                                <button @click="editErrorTracking({{ $errorTracking->id }})"
+                                    aria-label="Edit Error Tracking">
+                                    <svg class="w-6 h-6 text-blue-500 hover:text-blue-600"
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                        viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
+                                    </svg>
                                 </button>
+
+                                <!-- Delete Button -->
                                 <form action="{{ route('error_trackings.destroy', $errorTracking) }}" method="POST"
                                     class="inline" onsubmit="return confirm('Are you sure you want to delete this?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit"
-                                        class="text-red-500 hover:text-red-600 focus:outline-none text-sm">
-                                        <i class="fas fa-trash-alt text-base"></i>
+                                    <button type="submit" aria-label="Delete Error Tracking">
+                                        <svg class="w-6 h-6 text-red-500 hover:text-red-600"
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path stroke="currentColor" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="2"
+                                                d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
+                                        </svg>
                                     </button>
                                 </form>
                             </div>
                         </td>
+
                     </tr>
                 @endforeach
             </tbody>
