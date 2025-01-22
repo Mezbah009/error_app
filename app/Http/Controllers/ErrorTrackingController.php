@@ -13,36 +13,40 @@ class ErrorTrackingController extends Controller
      * Display a listing of the resource.
      */
 
+
     public function index()
     {
         // Check the role of the authenticated user
         if (auth()->user()->role === 'admin') {
             // If the user is an admin, fetch all error tracking records
             $errorTrackings = ErrorTracking::with(['developer', 'project'])
-                ->orderBy('id', 'desc') // Order by 'id' in descending order
+                ->orderBy('id', 'desc')
                 ->paginate(10);
-        } else {
-            // If the user is not an admin, fetch only error tracking records related to the authenticated user
-            $errorTrackings = ErrorTracking::with(['developer', 'project'])
-                ->where('developer_id', auth()->id()) // Assuming 'developer_id' is the field linking to the user
-                ->orderBy('id', 'desc') // Order by 'id' in descending order
-                ->paginate(10);
-        }
 
-        // Check the role of the authenticated user
-        if (auth()->user()->role === 'admin') {
-            // If the user is an admin, fetch all users with role 'user'
+            // Fetch all developers with role 'user'
             $developers = User::where('role', 'user')->get();
+
+            // Set the default developer for the admin to null (no selection)
+            $defaultDeveloperId = null;
         } else {
-            // If the user is not an admin, fetch only the authenticated user
+            // If the user is not an admin, fetch only their error tracking records
+            $errorTrackings = ErrorTracking::with(['developer', 'project'])
+                ->where('developer_id', auth()->id())
+                ->orderBy('id', 'desc')
+                ->paginate(10);
+
+            // Fetch only the authenticated user
             $developers = User::where('id', auth()->id())->get();
+
+            // Default developer ID is the authenticated user
+            $defaultDeveloperId = auth()->id();
         }
 
         // Fetch all projects
         $projects = Project::all();
 
         // Return the view with the data
-        return view('error_trackings.index', compact('errorTrackings', 'developers', 'projects'));
+        return view('error_trackings.index', compact('errorTrackings', 'developers', 'projects', 'defaultDeveloperId'));
     }
 
 

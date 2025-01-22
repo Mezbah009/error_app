@@ -3,7 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ErrorTrackingController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ProjrctController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,18 +26,20 @@ Route::get('user-test', [DashboardController::class, 'test'])->middleware('auth'
 
 
 
-
-
-
-
 Route::middleware('auth', 'verified')->group(function () {
-    Route::resource('projects', ProjrctController::class);
+    Route::resource('projects', ProjectController::class);
     Route::resource('users', UserController::class)->middleware('role:admin');
     Route::resource('error_trackings', ErrorTrackingController::class);
 
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->middleware(['auth', 'verified'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])
+        ->middleware(['auth', 'verified'])
+        ->name('dashboard');
+
+
+    // Route::get('/dashboard', function () {
+    //     return view('dashboard');
+    // })->middleware(['auth', 'verified'])->name('dashboard');
+
 
 });

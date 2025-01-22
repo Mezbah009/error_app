@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
-use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
 
-class ProjrctController extends Controller
+class ProjectController extends Controller
 {
     public function index()
     {
@@ -30,8 +29,8 @@ class ProjrctController extends Controller
         ]);
 
         Project::create([
-            'title'=>$request->title,
-            'developer_id'=>auth()->id()
+            'title' => $request->title,
+            'developer_id' => auth()->id()
         ]);
 
         return redirect()->route('projects.index')->with('success', 'Project created successfully.');

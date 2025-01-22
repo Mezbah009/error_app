@@ -82,12 +82,14 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'employee_id' => 'required|string|max:255|unique:users,employee_id,' . $user->id,
             'role' => 'required|in:' . implode(',', array_column(UserRole::cases(), 'value')),
         ]);
 
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
+            'employee_id' => $request->employee_id,
             'role' => $request->role,
         ]);
 
@@ -97,6 +99,7 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('success', 'User updated successfully!');
     }
+
 
     /**
      * Remove the specified user from the database.

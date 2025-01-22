@@ -52,7 +52,10 @@
                             <select name="developer_id" required class="w-full border border-gray-300 rounded-md">
                                 <option value="" disabled selected>Select Developer</option>
                                 @foreach ($developers as $developer)
-                                    <option value="{{ $developer->id }}">{{ $developer->name }}</option>
+                                    <option value="{{ $developer->id }}"
+                                        @if ($developer->id == $defaultDeveloperId) selected @endif>
+                                        {{ $developer->name }}
+                                    </option>
                                 @endforeach
                             </select>
                         </td>
