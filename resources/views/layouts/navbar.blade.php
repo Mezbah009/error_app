@@ -18,8 +18,8 @@
                 <a href="/dashboard" class="flex items-center ms-2 md:me-24">
                     <img src="{{ asset('images/logo.png') }}" alt="Application Logo" class="block h-9 w-auto">
                     <span class="text-2xl font-bold ml-2">
-                        {{-- {{ config('app.name') }} --}}
-                        Error Track
+                        {{ config('app.name') }}
+                        {{-- Error Track --}}
                     </span>
                 </a>
 

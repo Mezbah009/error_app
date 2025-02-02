@@ -7,15 +7,22 @@ use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
+
+    //-----------------index method-------------------
     public function index()
     {
-
         $projects = Project::when(!auth()->user()->hasRole('admin'), function ($query) {
             return $query->where('developer_id', auth()->id());
-        })->paginate();
+        })
+        ->orderBy('created_at', 'desc') // Order by created_at in descending order
+        ->paginate();
 
         return view('projects.index', compact('projects')); // Return to the view
     }
+
+
+    //--------create method-------------------
+
 
     public function create()
     {
@@ -41,10 +48,16 @@ class ProjectController extends Controller
     //     return view('projects.show', compact('project'));
     // }
 
+
+    //--------edit method-------------------
+
     public function edit(Project $project)
     {
         return view('projects.edit', compact('project'));
     }
+
+
+    //--------update method-------------------
 
     public function update(Request $request, Project $project)
     {

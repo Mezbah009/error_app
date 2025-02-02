@@ -11,10 +11,11 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::paginate(10);  // Fetch all users
-        return view('users.index', compact('users')); // Return to a view (adjust path as needed)
-    }
+        $users = User::paginate(10);
+        $roles = UserRole::cases(); // Fetching all role values from Enum
 
+        return view('users.index', compact('users', 'roles'));
+    }
 
     // public function index()
     // {
